@@ -1,0 +1,11 @@
+version: "3"
+services: 
+  goapp: # サービス名
+    build: # ビルドに使うDockerファイルのパス
+      context: .
+      dockerfile: ./build/Dockerfile
+    tty: true # コンテナの永続化
+
+    #volumesではローカルのファイルとコンテナ内のファイルを同期させています。
+    volumes:
+      - .:/go/src/app # マウントディレクトリ

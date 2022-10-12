@@ -1,0 +1,5 @@
+開発環境と本番環境のDB設定はdatabase.goに書いています。
+.env.developmentと
+.env.productionに
+それぞれの環境におけるDB情報を
+定義しておき実行環境変数から取得しています。
