@@ -1,11 +1,38 @@
 version: "3"
 services: 
   goapp: # サービス名
+    depends_on:
+        - db
     build: # ビルドに使うDockerファイルのパス
       context: .
       dockerfile: ./build/Dockerfile
     tty: true # コンテナの永続化
-
     #volumesではローカルのファイルとコンテナ内のファイルを同期させています。
     volumes:
       - .:/go/src/app # マウントディレクトリ
+    ports:
+        - "8080:8080" # ポートフォワーディング
+    networks:
+        - app-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test
+
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    tty: true
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+        - app-network
+    restart: always
+    container_name: mysql-ddd
+
+networks:
+  app-network:
+    driver: bridge

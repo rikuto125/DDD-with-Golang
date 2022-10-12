@@ -2,6 +2,7 @@ package config
 
 import (
 	"example.com/m/domain/model"
+	"fmt"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -36,17 +37,15 @@ func Connect() *gorm.DB {
 	db.AutoMigrate(&model.User{})
 
 	//最初の時だけmysqlにログインして作るのがめんどくさかったら以下のコメントアウトを外してください
-	//db.Create(&model.User{
-	//	Id:   1,
-	//	Name: "田中",
-	//})
+	db.Create(&model.User{
+		Id:   1,
+		Name: "田中",
+	})
 
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
-
 	//defer Close()
-
 	return db
 }
 
