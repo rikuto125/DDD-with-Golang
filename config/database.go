@@ -1,6 +1,7 @@
 package config
 
 import (
+	"example.com/m/domain/model"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -31,11 +32,20 @@ func Connect() *gorm.DB {
 	// DB接続
 	db, err = gorm.Open("mysql", os.Getenv("CONNECT"))
 
+	//table作成
+	db.AutoMigrate(&model.User{})
+
+	//最初の時だけmysqlにログインして作るのがめんどくさかったら以下のコメントアウトを外してください
+	//db.Create(&model.User{
+	//	Id:   1,
+	//	Name: "田中",
+	//})
+
 	if err != nil {
 		panic(err)
 	}
 
-	defer Close()
+	//defer Close()
 
 	return db
 }

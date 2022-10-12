@@ -6,6 +6,6 @@ import (
 
 type User struct {
 	Id        uint
-	name      string
+	Name      string
 	CreatedAt time.Time
 }

@@ -19,6 +19,7 @@ func NewUserPersistence(conn *gorm.DB) repository.UserRepository {
 // 検索
 func (up *userPersistence) Search(name string) ([]*model.User, error) {
 	var user []*model.User
+
 	// DB接続確認
 	if err := up.Conn.Take(&user).Error; err != nil {
 		return nil, err
