@@ -31,8 +31,7 @@ services:
     networks:
         - app-network
     restart: always
-    container_name: mysql-ddd
-
+    container_name: mysql-ddd # gormで接続するときに使う　tcp＠(コンテナ名):3306みたいに
 networks:
   app-network:
     driver: bridge
